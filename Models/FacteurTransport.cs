@@ -1,9 +1,17 @@
-﻿namespace building_materials.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace building_materials.Models
 {
     public class FacteurTransport
     {
+        [Key]
         public int IdMoyenTransport { get; set; }
-        public string Nom { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string? Nom { get; set; }
+
+        [Required]
         public double FacteurCO2 { get; set; }
     }
 

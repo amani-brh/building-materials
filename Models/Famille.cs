@@ -1,12 +1,22 @@
-﻿namespace building_materials.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace building_materials.Models
 {
     public class Famille
     {
+        [Key]
         public int IdFamille { get; set; }
-        public string NomFamille { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string? NomFamille { get; set; }
+
+        [Required]
         public int IdType { get; set; }
 
-        public Type Type { get; set; }
+        [ForeignKey("IdType")]
+        public MaterialType Type { get; set; }
     }
 
 }
