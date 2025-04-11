@@ -1,0 +1,61 @@
+@model building_materials.Models.CaracteristiqueEnvironnementale
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>CaracteristiqueEnvironnementale</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdCaract" />
+            <div class="form-group">
+                <label asp-for="IdMateriau" class="control-label"></label>
+                <select asp-for="IdMateriau" class="form-control" asp-items="ViewBag.IdMateriau"></select>
+                <span asp-validation-for="IdMateriau" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmissionCO2" class="control-label"></label>
+                <input asp-for="EmissionCO2" class="form-control" />
+                <span asp-validation-for="EmissionCO2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PollutionEau" class="control-label"></label>
+                <input asp-for="PollutionEau" class="form-control" />
+                <span asp-validation-for="PollutionEau" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PollutionAir" class="control-label"></label>
+                <input asp-for="PollutionAir" class="form-control" />
+                <span asp-validation-for="PollutionAir" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConsommationEau" class="control-label"></label>
+                <input asp-for="ConsommationEau" class="form-control" />
+                <span asp-validation-for="ConsommationEau" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UniteFonctionnelle" class="control-label"></label>
+                <input asp-for="UniteFonctionnelle" class="form-control" />
+                <span asp-validation-for="UniteFonctionnelle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UtilisationNetteEauDouce" class="control-label"></label>
+                <input asp-for="UtilisationNetteEauDouce" class="form-control" />
+                <span asp-validation-for="UtilisationNetteEauDouce" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

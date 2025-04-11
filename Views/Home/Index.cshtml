@@ -3,6 +3,18 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to the Building Materials Platform</h1>
+    <p>This platform is designed to manage building materials, their environmental characteristics, transportation factors, and more. Developed by Amani Barhoumi.</p>
+
+    <h2>Navigation</h2>
+    <p>Use the links below to navigate to different sections of the platform:</p>
+    <ul>
+        <li><a asp-controller="FacteurTransport" asp-action="Index">Manage Transport Factors</a></li>
+        <li><a asp-controller="Materiau" asp-action="Index">Manage Materials</a></li>
+        <li><a asp-controller="Famille" asp-action="Index">Manage Material Families</a></li>
+        <li><a asp-controller="Provenance" asp-action="Index">Manage Provenances</a></li>
+        <li><a asp-controller="Producteur" asp-action="Index">Manage Producers</a></li>
+        <li><a asp-controller="Transport" asp-action="Index">Manage Transports</a></li>
+        <li><a asp-controller="CaracteristiqueEnvironnementale" asp-action="Index">Manage Environmental Characteristics</a></li>
+    </ul>
 </div>

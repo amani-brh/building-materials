@@ -1,0 +1,60 @@
+@model building_materials.Models.CaracteristiqueEnvironnementale
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>CaracteristiqueEnvironnementale</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EmissionCO2)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EmissionCO2)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PollutionEau)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PollutionEau)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PollutionAir)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PollutionAir)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ConsommationEau)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ConsommationEau)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UniteFonctionnelle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UniteFonctionnelle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UtilisationNetteEauDouce)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UtilisationNetteEauDouce)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Materiau)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Materiau.Nom)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdCaract">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,47 @@
+@model building_materials.Models.Materiau
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Materiau</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nom" class="control-label"></label>
+                <input asp-for="Nom" class="form-control" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Origine" class="control-label"></label>
+                <input asp-for="Origine" class="form-control" />
+                <span asp-validation-for="Origine" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdFamille" class="control-label"></label>
+                <select asp-for="IdFamille" class ="form-control" asp-items="ViewBag.IdFamille"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdProvenance" class="control-label"></label>
+                <select asp-for="IdProvenance" class ="form-control" asp-items="ViewBag.IdProvenance"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdProducteur" class="control-label"></label>
+                <select asp-for="IdProducteur" class ="form-control" asp-items="ViewBag.IdProducteur"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
