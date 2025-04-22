@@ -1,8 +1,39 @@
 /********** Template CSS **********/
+/* Update the main color scheme to use green */
 :root {
-    --primary: #0463FA;
-    --light: #EFF5FF;
-    --dark: #1B2C51;
+    --primary: #198754; /* This is already green */
+    --light: #FFFFFF; /* You could keep this or change to a light green */
+    --dark: #1B2C51; /* You could keep this or adjust */
+}
+
+/* For Bootstrap specific elements that might be using blue */
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.text-primary {
+    color: var(--primary) !important;
+}
+
+/* If you have any specific blue elements in your layout */
+.bg-blue {
+    background-color: var(--primary);
+}
+
+/* For links and other elements that might be using blue */
+a {
+    color: var(--primary);
+}
+
+    a:hover {
+        color: #146c43; /* A darker shade of the green */
+    }
+
+/* If you want to change the body background to a light green */
+body {
+    background-color: #FFFFFF; /* A very light green */
+    margin-bottom: 60px;
 }
 
 .fw-medium {

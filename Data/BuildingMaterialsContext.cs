@@ -3,12 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace building_materials.Data
 {
-    public class BuildingMaterialsContext : DbContext
+    public class BuildingMaterialsContext(DbContextOptions<BuildingMaterialsContext> options) : DbContext(options)
     {
-        public BuildingMaterialsContext(DbContextOptions<BuildingMaterialsContext> options) : base(options)
-        {
-        }
-
         public DbSet<FacteurTransport> FacteurTransports { get; set; }
         public DbSet<Materiau> Materiaux { get; set; }
         public DbSet<Famille> Familles { get; set; }

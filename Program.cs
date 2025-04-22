@@ -1,4 +1,5 @@
 using building_materials.Data;
+using building_materials.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BuildingMaterialsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddHttpClient<MaterialService>();
+builder.Services.AddScoped<MaterialService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

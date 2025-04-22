@@ -1,48 +1,46 @@
-﻿    <!-- About Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="d-flex flex-column">
-                        <img class="img-fluid rounded w-75 align-self-end" src="img/about-1.jpg" alt="">
-                        <img class="img-fluid rounded w-50 bg-white pt-3 pe-3" src="img/about-2.jpg" alt="" style="margin-top: -25%;">
-                    </div>
+﻿<!-- About Start -->
+<section id="about" class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="d-flex flex-column">
+                    <img class="img-fluid rounded w-75 align-self-end" src="img/about-1.jpg" alt="About Image 1">
+                    <img class="img-fluid rounded w-50 bg-white pt-3 pe-3" src="img/about-2.jpg" alt="About Image 2" style="margin-top: -25%;">
                 </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <p class="d-inline-block border rounded-pill py-1 px-4">About the Founder</p>
-                    <h1 class="mb-4">Meet Amani Barhoumi — The Vision Behind This Platform</h1>
-                    <p>This platform was developed by <strong>Amani Barhoumi</strong>, a passionate and dedicated second-year Civil Engineering student at <strong>ENIT (École Nationale d'Ingénieurs de Tunis)</strong>.</p>
-                    <p class="mb-4">It was created as part of her <strong>Projet de Fin d’Année (PFA)</strong>, under the guidance and supervision of <strong>Dr. Jelidi Ahmed</strong>. The goal of the platform is to contribute meaningfully to sustainable building practices by providing accessible and transparent environmental data on building materials.</p>
-                    <p><i class="far fa-check-circle text-primary me-3"></i>Driven by passion for civil engineering</p>
-                    <p><i class="far fa-check-circle text-primary me-3"></i>Focus on sustainable materials</p>
-                    <p><i class="far fa-check-circle text-primary me-3"></i>Created with academic and environmental purpose</p>
-                </div>
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <p class="d-inline-block border rounded-pill py-1 px-4">About the Founder</p>
+                <h1 class="mb-4">Meet Amani Barhoumi — The Vision Behind This Platform</h1>
+                <p>This platform was developed by <strong>Amani Barhoumi</strong>, a passionate and dedicated second-year Civil Engineering student at <strong>ENIT (École Nationale d'Ingénieurs de Tunis)</strong>.</p>
+                <p class="mb-4">It was created as part of her <strong>Projet de Fin d'Année (PFA)</strong>, under the guidance and supervision of <strong>Dr. Jelidi Ahmed</strong>. The goal of the platform is to contribute meaningfully to sustainable building practices by providing accessible and transparent environmental data on building materials.</p>
+                <p><i class="far fa-check-circle text-primary me-3"></i>Driven by passion for civil engineering</p>
+                <p><i class="far fa-check-circle text-primary me-3"></i>Focus on sustainable materials</p>
+                <p><i class="far fa-check-circle text-primary me-3"></i>Created with academic and environmental purpose</p>
             </div>
         </div>
     </div>
-    <!-- About End -->
+</section>
+<!-- About End -->
 
 
 
-
-
-<!-- Service Start --> 
-<div class="container-xxl py-5">
+<!-- Service Start -->
+<div id="service" class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <p class="d-inline-block border rounded-pill py-1 px-4">Services</p>
-            <h1>Explore Our Platform Entities</h1>
+            <h1>Explore Our Services</h1>
         </div>
         <div class="row g-4">
             <!-- Transport Factors -->
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item bg-light rounded h-100 p-5">
                     <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
-                        <i class="fa fa-truck text-primary fs-4"></i>
+                        <i class="fa fa-truck-loading text-primary fs-4"></i>
                     </div>
                     <h4 class="mb-3">Transport Factors</h4>
                     <p class="mb-4">Define and manage the environmental impact factors associated with different transport types.</p>
-                    @Html.ActionLink("View More", "Index", "FacteurTransport", new { }, new { @class = "btn btn-primary rounded-pill px-4 py-2" })
+                    @Html.ActionLink("View More", "Index", "FacteurTransport", new { }, new { @class = "btn btn-light rounded-pill px-4 py-4" })
                 </div>
             </div>
 
@@ -50,11 +48,11 @@
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
                 <div class="service-item bg-light rounded h-100 p-5">
                     <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
-                        <i class="fa fa-cube text-primary fs-4"></i>
+                        <i class="fa fa-clipboard-list text-primary fs-4"></i>
                     </div>
                     <h4 class="mb-3">Materials</h4>
                     <p class="mb-4">Browse and maintain the database of construction materials used in civil engineering projects.</p>
-                    @Html.ActionLink("View More", "Index", "Materiau", new { }, new { @class = "btn btn-primary rounded-pill px-4 py-2" })
+                    @Html.ActionLink("View More", "Index", "Materiau", new { }, new { @class = "btn btn-light rounded-pill px-4 py-2" })
                 </div>
             </div>
 
@@ -62,11 +60,11 @@
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="service-item bg-light rounded h-100 p-5">
                     <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
-                        <i class="fa fa-layer-group text-primary fs-4"></i>
+                        <i class="fa fa-sitemap text-primary fs-4"></i>
                     </div>
                     <h4 class="mb-3">Material Families</h4>
                     <p class="mb-4">Organize materials into families for better classification and lifecycle impact tracking.</p>
-                    @Html.ActionLink("View More", "Index", "Famille", new { }, new { @class = "btn btn-primary rounded-pill px-4 py-2" })
+                    @Html.ActionLink("View More", "Index", "Famille", new { }, new { @class = "btn btn-light rounded-pill px-4 py-2" })
                 </div>
             </div>
 
@@ -74,11 +72,11 @@
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
                 <div class="service-item bg-light rounded h-100 p-5">
                     <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
-                        <i class="fa fa-map-marker-alt text-primary fs-4"></i>
+                        <i class="fa fa-globe-americas text-primary fs-4"></i>
                     </div>
                     <h4 class="mb-3">Provenances</h4>
                     <p class="mb-4">Track the origin locations of materials to evaluate transportation and environmental impact.</p>
-                    @Html.ActionLink("View More", "Index", "Provenance", new { }, new { @class = "btn btn-primary rounded-pill px-4 py-2" })
+                    @Html.ActionLink("View More", "Index", "Provenance", new { }, new { @class = "btn btn-light rounded-pill px-4 py-2" })
                 </div>
             </div>
 
@@ -86,11 +84,11 @@
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="service-item bg-light rounded h-100 p-5">
                     <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
-                        <i class="fa fa-industry text-primary fs-4"></i>
+                        <i class="fa fa-hard-hat text-primary fs-4"></i>
                     </div>
                     <h4 class="mb-3">Producers</h4>
                     <p class="mb-4">Maintain a database of manufacturers and suppliers involved in material production.</p>
-                    @Html.ActionLink("View More", "Index", "Producteur", new { }, new { @class = "btn btn-primary rounded-pill px-4 py-2" })
+                    @Html.ActionLink("View More", "Index", "Producteur", new { }, new { @class = "btn btn-light rounded-pill px-4 py-2" })
                 </div>
             </div>
 
@@ -98,11 +96,11 @@
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
                 <div class="service-item bg-light rounded h-100 p-5">
                     <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
-                        <i class="fa fa-shipping-fast text-primary fs-4"></i>
+                        <i class="fa fa-truck-moving text-primary fs-4"></i>
                     </div>
                     <h4 class="mb-3">Transports</h4>
                     <p class="mb-4">Manage the means of transportation used across material supply chains.</p>
-                    @Html.ActionLink("View More", "Index", "Transport", new { }, new { @class = "btn btn-primary rounded-pill px-4 py-2" })
+                    @Html.ActionLink("View More", "Index", "Transport", new { }, new { @class = "btn btn-light rounded-pill px-4 py-2" })
                 </div>
             </div>
 
@@ -110,11 +108,11 @@
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                 <div class="service-item bg-light rounded h-100 p-5">
                     <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
-                        <i class="fa fa-leaf text-primary fs-4"></i>
+                        <i class="fa fa-seedling text-primary fs-4"></i>
                     </div>
                     <h4 class="mb-3">Environmental Characteristics</h4>
                     <p class="mb-4">Assess environmental attributes and sustainability scores related to each material.</p>
-                    @Html.ActionLink("View More", "Index", "CaracteristiqueEnvironnementale", new { }, new { @class = "btn btn-primary rounded-pill px-4 py-2" })
+                    @Html.ActionLink("View More", "Index", "CaracteristiqueEnvironnementale", new { }, new { @class = "btn btn-light rounded-pill px-4 py-2" })
                 </div>
             </div>
 
@@ -122,17 +120,18 @@
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.8s">
                 <div class="service-item bg-light rounded h-100 p-5">
                     <div class="d-inline-flex align-items-center justify-content-center bg-white rounded-circle mb-4" style="width: 65px; height: 65px;">
-                        <i class="fa fa-tags text-primary fs-4"></i>
+                        <i class="fa fa-hammer text-primary fs-4"></i>
                     </div>
                     <h4 class="mb-3">Material Types</h4>
                     <p class="mb-4">Categorize materials by type for structured data handling and carbon analysis.</p>
-                    @Html.ActionLink("View More", "Index", "MaterialType", new { }, new { @class = "btn btn-primary rounded-pill px-4 py-2" })
+                    @Html.ActionLink("View More", "Index", "MaterialType", new { }, new { @class = "btn btn-light rounded-pill px-4 py-2" })
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Service End --> 
+<!-- Service End -->
+
 
 
 
@@ -146,7 +145,7 @@
 
 
    <!-- Team Start -->
-<div class="container-xxl py-5">
+<div id="team" class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <p class="d-inline-block border rounded-pill py-1 px-4">Team</p>
@@ -156,7 +155,7 @@
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="team-item position-relative rounded overflow-hidden">
                     <div class="overflow-hidden">
-                        <img class="img-fluid" src="img/team-1.jpg" alt="Amani Barhoumi">
+                        <img class="img-fluid" src="img/team-2.jpg" alt="Amani Barhoumi">
                     </div>
                     <div class="team-text bg-light text-center p-4">
                         <h5>Amani Barhoumi</h5>
