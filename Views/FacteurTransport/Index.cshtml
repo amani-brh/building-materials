@@ -1,0 +1,95 @@
+﻿@model IEnumerable<building_materials.Models.FacteurTransport>
+@{
+    ViewData["Title"] = "Transport Factors";
+}
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <p class="d-inline-block border rounded-pill py-1 px-4">Manage</p>
+            <h1>Transport Factors</h1>
+            <p class="mb-4">Define and manage the environmental impact factors associated with different transport types.</p>
+        </div>
+
+        <!-- Action Button -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <a asp-action="Create" class="btn btn-primary rounded-pill px-4 py-2">
+                    <i class="fa fa-plus-circle me-2"></i>Add New Transport Factor
+                </a>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="card shadow-sm border-0 rounded-3 wow fadeInUp" data-wow-delay="0.2s">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="py-3">
+                                    @Html.DisplayNameFor(model => model.Nom)
+                                </th>
+                                <th class="py-3">
+                                    @Html.DisplayNameFor(model => model.FacteurCO2)
+                                    <small class="text-muted">(kgCO₂e/km)</small>
+                                </th>
+                                <th class="py-3 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="icon-box bg-light rounded-circle me-3">
+                                                    <i class="fa fa-truck-moving text-primary"></i>
+                                                </div>
+                                                <div>
+                                                    <h6 class="mb-0">@Html.DisplayFor(modelItem => item.Nom)</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-light text-dark rounded-pill px-3 py-2">
+                                            @Html.DisplayFor(modelItem => item.FacteurCO2)
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a asp-action="Edit" asp-route-id="@item.IdMoyenTransport" class="btn btn-sm btn-outline-primary" title="Edit">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a asp-action="Details" asp-route-id="@item.IdMoyenTransport" class="btn btn-sm btn-outline-info" title="Details">
+                                                    <i class="fa fa-info-circle"></i>
+                                                </a>
+                                                <a asp-action="Delete" asp-route-id="@item.IdMoyenTransport" class="btn btn-sm btn-outline-danger" title="Delete">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .icon-box {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .table > :not(caption) > * > * {
+        padding: 0.75rem 1rem;
+    }
+</style>

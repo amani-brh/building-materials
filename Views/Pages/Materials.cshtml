@@ -1,0 +1,111 @@
+﻿>
+                            <form method="post">
+                                <button type="submit" class="btn btn-sm btn-info">Details</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-muted">No materials found.</p>
+    }
+
+    @if (Model.SelectedMaterial != null)
+    {
+        <hr />
+        <h3>Details for: @Model.SelectedMaterial.Material.Nom</h3>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Basic Info</h5>
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>ID:</strong> @Model.SelectedMaterial.Material.IdMateriau</li>
+                    <li class="list-group-item"><strong>Name:</strong> @Model.SelectedMaterial.Material.Nom</li>
+                    <li class="list-group-item"><strong>Origin:</strong> @Model.SelectedMaterial.Material.Origine</li>
+                    <li class="list-group-item"><strong>Family:</strong> @Model.SelectedMaterial.Material.Famille?.NomFamille</li>
+                    <li class="list-group-item"><strong>Family Type:</strong> @Model.SelectedMaterial.Material.Famille?.Type?.NomType</li>
+                    <li class="list-group-item"><strong>Producer:</strong> @Model.SelectedMaterial.Material.Producteur?.Nom</li>
+                    <li class="list-group-item"><strong>Country:</strong> @Model.SelectedMaterial.Material.Provenance?.Pays</li>
+                </ul>
+            </div>
+
+            <div class="col-md-6">
+                <h5>Environmental Characteristics</h5>
+                @if (Model.SelectedMaterial.EnvironmentalCharacteristics.Any())
+                {
+                    <ul class="list-group">
+                        @foreach (var ch in Model.SelectedMaterial.EnvironmentalCharacteristics)
+                        {
+                            <li class="list-group-item"><strong>CO2:</strong> @ch.EmissionCO2</li>
+                            <li class="list-group-item"><strong>Water Pollution:</strong> @ch.PollutionEau</li>
+                            <li class="list-group-item"><strong>Air Pollution:</strong> @ch.PollutionAir</li>
+                            <li class="list-group-item"><strong>Water Usage:</strong> @ch.ConsommationEau</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="text-muted">No environmental data available.</p>
+                }
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h5>CO2 Emissions Chart</h5>
+                <canvas id="co2Chart"></canvas>
+            </div>
+            <div class="col-md-6">
+                <h5>Environmental Impact Overview</h5>
+                <canvas id="impactChart"></canvas>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        window.onload = function () {
+            const material = @Html.Raw(Json.Serialize(Model.SelectedMaterial));
+
+            if (material) {
+                const prodEmission = material.EnvironmentalCharacteristics[0]?.EmissionCO2 || 0;
+                const transportEmission = material.TransportInformation.reduce((acc, t) => acc + t.EmissionCO2, 0);
+
+                new Chart(document.getElementById('co2Chart'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Production', 'Transport', 'Total'],
+                        datasets: [{
+                            label: 'CO2 Emissions (kg)',
+                            data: [prodEmission, transportEmission, prodEmission + transportEmission],
+                            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc']
+                        }]
+                    }
+                });
+
+                new Chart(document.getElementById('impactChart'), {
+                    type: 'radar',
+                    data: {
+                        labels: ['CO2', 'Water Pollution', 'Air Pollution', 'Water Consumption'],
+                        datasets: [{
+                            label: 'Impact Values',
+                            data: [
+                                material.EnvironmentalCharacteristics[0]?.EmissionCO2 || 0,
+                                material.EnvironmentalCharacteristics[0]?.PollutionEau || 0,
+                                material.EnvironmentalCharacteristics[0]?.PollutionAir || 0,
+                                material.EnvironmentalCharacteristics[0]?.ConsommationEau || 0
+                            ],
+                            backgroundColor: 'rgba(54, 185, 204, 0.2)',
+                            borderColor: 'rgba(54, 185, 204, 1)',
+                        }]
+                    }
+                });
+            }
+        }
+    </script>
+}

@@ -1,0 +1,47 @@
+@model IEnumerable<building_materials.Models.Provenance>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DistanceKm)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pays)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DistanceKm)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdProvenance">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdProvenance">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdProvenance">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
