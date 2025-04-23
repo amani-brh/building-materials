@@ -131,9 +131,7 @@
     </div>
 </div>
 <!-- Service End -->
-
-
-<a asp-controller="Materiaux" asp-action="Index" class="btn btn-primary">View Materials</a>
+@Html.ActionLink("View More", "Index", "Materiaux", new { }, new { @class = "btn btn-light rounded-pill px-4 py-2" })
 
 
 
@@ -172,3 +170,502 @@
     </div>
 </div>
 <!-- Team End -->
+
+<div class="container mt-4">
+    <h1 class="mb-4">Matériaux de Construction</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" id="searchInput" class="form-control" placeholder="Rechercher par nom...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" id="searchButton" type="button">Rechercher</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Liste des Matériaux</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="materialsTable">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Origine</th>
+                                    <th>Famille</th>
+                                    <th>Type</th>
+                                    <th>Pays</th>
+                                    <th>Émission CO2</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Material Details Modal -->
+<div class="modal fade" id="materialModal" tabindex="-1" role="dialog" aria-labelledby="materialModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="materialModalLabel">Détails du Matériau</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="materialModalBody">
+                <!-- Material details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="viewStatsBtn">Voir les Statistiques</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Modal -->
+<div class="modal fade" id="statsModal" tabindex="-1" role="dialog" aria-labelledby="statsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="statsModalLabel">Statistiques du Matériau</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <canvas id="emissionsChart"></canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <canvas id="pollutionChart"></canvas>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div id="statsDetails">
+                            <!-- Statistics details will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Global variables
+        let currentMaterialId = null;
+        let emissionsChart = null;
+        let pollutionChart = null;
+
+        // Load all materials when page loads
+        $(document).ready(function() {
+            loadMaterials();
+
+            // Set up search button click event
+            $("#searchButton").click(function() {
+                const searchTerm = $("#searchInput").val();
+                searchMaterials(searchTerm);
+            });
+
+            // Allow search on Enter key
+            $("#searchInput").keypress(function(e) {
+                if (e.which === 13) {
+                    const searchTerm = $(this).val();
+                    searchMaterials(searchTerm);
+                }
+            });
+
+            // Set up view stats button click event
+            $("#viewStatsBtn").click(function() {
+                if (currentMaterialId) {
+                    loadMaterialStats(currentMaterialId);
+                    $("#materialModal").modal('hide');
+                    $("#statsModal").modal('show');
+                }
+            });
+        });
+
+        // Function to load all materials
+        function loadMaterials() {
+            $.ajax({
+                url: '/Materiaux',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    displayMaterials(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading materials:', error);
+                    alert('Erreur lors du chargement des matériaux.');
+                }
+            });
+        }
+
+        // Function to search materials by name
+        function searchMaterials(searchTerm) {
+            $.ajax({
+                url: '/Materiaux/search',
+                type: 'GET',
+                data: { name: searchTerm },
+                dataType: 'json',
+                success: function(data) {
+                    displayMaterials(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error searching materials:', error);
+                    alert('Erreur lors de la recherche des matériaux.');
+                }
+            });
+        }
+
+        // Function to display materials in the table
+        function displayMaterials(materials) {
+            const tbody = $("#materialsTable tbody");
+            tbody.empty();
+
+            if (materials.length === 0) {
+                tbody.append('<tr><td colspan="7" class="text-center">Aucun matériau trouvé</td></tr>');
+                return;
+            }
+
+            materials.forEach(function(material) {
+                const row = `<tr>
+                    <td>${material.nom}</td>
+                    <td>${material.origine}</td>
+                    <td>${material.familleNom}</td>
+                    <td>${material.typeNom}</td>
+                    <td>${material.provenance.pays}</td>
+                    <td>${material.emissionCO2Totale.toFixed(2)} kg CO2</td>
+                    <td>
+                        <button class="btn btn-info btn-sm view-details" data-id="${material.idMateriau}">Détails</button>
+                        <button class="btn btn-success btn-sm view-stats" data-id="${material.idMateriau}">Statistiques</button>
+                    </td>
+                </tr>`;
+                tbody.append(row);
+            });
+
+            // Add click event for detail buttons
+            $(".view-details").click(function() {
+                const materialId = $(this).data('id');
+                loadMaterialDetails(materialId);
+            });
+
+            // Add click event for stats buttons
+            $(".view-stats").click(function() {
+                const materialId = $(this).data('id');
+                loadMaterialStats(materialId);
+            });
+        }
+
+        // Function to load material details
+        function loadMaterialDetails(id) {
+            $.ajax({
+                url: `/Materiaux/${id}`,
+                type: 'GET',
+                dataType: 'json',
+                success: function(material) {
+                    currentMaterialId = material.idMateriau;
+                    displayMaterialDetails(material);
+                    $("#materialModal").modal('show');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading material details:', error);
+                    alert('Erreur lors du chargement des détails du matériau.');
+                }
+            });
+        }
+
+        // Function to display material details in the modal
+        function displayMaterialDetails(material) {
+            $("#materialModalLabel").text(`Détails: ${material.nom}`);
+
+            let transportHTML = '';
+            if (material.transports && material.transports.length > 0) {
+                transportHTML = `
+                <h5 class="mt-3">Transports</h5>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Moyen</th>
+                            <th>Distance (km)</th>
+                            <th>Émission CO2 (kg)</th>
+                        </tr>
+                    </thead>
+                    <tbody>`;
+
+                material.transports.forEach(function(transport) {
+                    transportHTML += `
+                        <tr>
+                            <td>${transport.moyenTransportNom}</td>
+                            <td>${transport.distanceKm}</td>
+                            <td>${transport.emissionCO2.toFixed(2)}</td>
+                        </tr>`;
+                });
+
+                transportHTML += `
+                    </tbody>
+                    <tfoot>
+                        <tr class="font-weight-bold">
+                            <td>Total</td>
+                            <td>${material.distanceTotale} km</td>
+                            <td>${material.transports.reduce((sum, t) => sum + t.emissionCO2, 0).toFixed(2)} kg CO2</td>
+                        </tr>
+                    </tfoot>
+                </table>`;
+            } else {
+                transportHTML = '<p>Aucune information de transport disponible.</p>';
+            }
+
+            const caractHTML = material.caracteristiques ?
+                `<div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Émission CO2:</strong> ${material.caracteristiques.emissionCO2.toFixed(2)} kg</p>
+                        <p><strong>Pollution Eau:</strong> ${material.caracteristiques.pollutionEau.toFixed(2)}</p>
+                        <p><strong>Pollution Air:</strong> ${material.caracteristiques.pollutionAir.toFixed(2)}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Consommation Eau:</strong> ${material.caracteristiques.consommationEau.toFixed(2)} m³</p>
+                        <p><strong>Unité Fonctionnelle:</strong> ${material.caracteristiques.uniteFonctionnelle}</p>
+                        <p><strong>Utilisation Eau Douce:</strong> ${material.caracteristiques.utilisationNetteEauDouce}</p>
+                    </div>
+                </div>` :
+                '<p>Aucune caractéristique environnementale disponible.</p>';
+
+            const detailsHTML = `
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Informations générales</h5>
+                        <p><strong>ID:</strong> ${material.idMateriau}</p>
+                        <p><strong>Nom:</strong> ${material.nom}</p>
+                        <p><strong>Origine:</strong> ${material.origine}</p>
+                        <p><strong>Famille:</strong> ${material.familleNom}</p>
+                        <p><strong>Type:</strong> ${material.typeNom}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Provenance</h5>
+                        <p><strong>Pays:</strong> ${material.provenance.pays}</p>
+                        <p><strong>Région:</strong> ${material.provenance.region}</p>
+                        <p><strong>Distance:</strong> ${material.provenance.distanceKm} km</p>
+
+                        <h5 class="mt-3">Producteur</h5>
+                        <p><strong>Nom:</strong> ${material.producteur.nom}</p>
+                        <p><strong>Lieu de production:</strong> ${material.producteur.lieuProduction}</p>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h5>Caractéristiques environnementales</h5>
+                        ${caractHTML}
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        ${transportHTML}
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            <h5>Bilan CO2</h5>
+                            <p><strong>Production:</strong> ${(material.caracteristiques?.emissionCO2 || 0).toFixed(2)} kg CO2</p>
+                            <p><strong>Transport:</strong> ${material.transports.reduce((sum, t) => sum + t.emissionCO2, 0).toFixed(2)} kg CO2</p>
+                            <p><strong>Total:</strong> ${material.emissionCO2Totale.toFixed(2)} kg CO2</p>
+                        </div>
+                    </div>
+                </div>`;
+
+            $("#materialModalBody").html(detailsHTML);
+        }
+
+        // Function to load material statistics
+        function loadMaterialStats(id) {
+            $.ajax({
+                url: `/Materiaux/${id}`,
+                type: 'GET',
+                dataType: 'json',
+                success: function(material) {
+                    $.ajax({
+                        url: `/Materiaux/${id}/statistics`,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(stats) {
+                            $("#statsModalLabel").text(`Statistiques: ${material.nom}`);
+                            displayStatistics(stats, material);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error loading statistics:', error);
+                            alert('Erreur lors du chargement des statistiques.');
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading material for stats:', error);
+                    alert('Erreur lors du chargement du matériau.');
+                }
+            });
+        }
+
+        // Function to display statistics in the modal
+        function displayStatistics(stats, material) {
+            // Create statistics details HTML
+            const statsHTML = `
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Métrique</th>
+                            <th>Valeur</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Émission CO2 Production</td>
+                            <td>${stats.EmissionCO2Production.toFixed(2)} kg CO2</td>
+                        </tr>
+                        <tr>
+                            <td>Émission CO2 Transport</td>
+                            <td>${stats.EmissionCO2Transport.toFixed(2)} kg CO2</td>
+                        </tr>
+                        <tr>
+                            <td>Émission CO2 Totale</td>
+                            <td>${stats.EmissionCO2Totale.toFixed(2)} kg CO2</td>
+                        </tr>
+                        <tr>
+                            <td>Pollution de l'Eau</td>
+                            <td>${stats.PollutionEau.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>Pollution de l'Air</td>
+                            <td>${stats.PollutionAir.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>Consommation d'Eau</td>
+                            <td>${stats.ConsommationEau.toFixed(2)} m³</td>
+                        </tr>
+                        <tr>
+                            <td>Distance Totale</td>
+                            <td>${stats.DistanceTotale.toFixed(0)} km</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>`;
+
+            $("#statsDetails").html(statsHTML);
+
+            // Create emissions chart
+            if (emissionsChart) {
+                emissionsChart.destroy();
+            }
+
+            const emissionsCtx = document.getElementById('emissionsChart').getContext('2d');
+            emissionsChart = new Chart(emissionsCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Production', 'Transport'],
+                    datasets: [{
+                        label: 'Émissions CO2 (kg)',
+                        data: [
+                            stats.EmissionCO2Production,
+                            stats.EmissionCO2Transport
+                        ],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 99, 132, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Répartition des Émissions CO2'
+                        }
+                    }
+                }
+            });
+
+            // Create pollution chart
+            if (pollutionChart) {
+                pollutionChart.destroy();
+            }
+
+            const pollutionCtx = document.getElementById('pollutionChart').getContext('2d');
+            pollutionChart = new Chart(pollutionCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pollution Air', 'Pollution Eau', 'Consommation Eau (m³)'],
+                    datasets: [{
+                        label: 'Impact Environnemental',
+                        data: [
+                            stats.PollutionAir,
+                            stats.PollutionEau,
+                            stats.ConsommationEau
+                        ],
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(153, 102, 255, 0.7)',
+                            'rgba(255, 159, 64, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Impact Environnemental'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+}
