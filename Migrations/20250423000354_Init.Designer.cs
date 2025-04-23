@@ -11,7 +11,7 @@ using building_materials.Data;
 namespace building_materials.Migrations
 {
     [DbContext(typeof(BuildingMaterialsContext))]
-    [Migration("20250411160532_Init")]
+    [Migration("20250423000354_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -52,10 +52,9 @@ namespace building_materials.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("UtilisationNetteEauDouce")
-                        .IsRequired()
+                    b.Property<double>("UtilisationNetteEauDouce")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("float");
 
                     b.HasKey("IdCaract");
 
@@ -245,7 +244,7 @@ namespace building_materials.Migrations
             modelBuilder.Entity("building_materials.Models.CaracteristiqueEnvironnementale", b =>
                 {
                     b.HasOne("building_materials.Models.Materiau", "Materiau")
-                        .WithMany()
+                        .WithMany("CaracteristiqueEnvironnementales")
                         .HasForeignKey("IdMateriau")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -294,7 +293,7 @@ namespace building_materials.Migrations
             modelBuilder.Entity("building_materials.Models.Transport", b =>
                 {
                     b.HasOne("building_materials.Models.Materiau", "Materiau")
-                        .WithMany()
+                        .WithMany("Transports")
                         .HasForeignKey("IdMateriau")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -308,6 +307,13 @@ namespace building_materials.Migrations
                     b.Navigation("Materiau");
 
                     b.Navigation("MoyenTransport");
+                });
+
+            modelBuilder.Entity("building_materials.Models.Materiau", b =>
+                {
+                    b.Navigation("CaracteristiqueEnvironnementales");
+
+                    b.Navigation("Transports");
                 });
 #pragma warning restore 612, 618
         }

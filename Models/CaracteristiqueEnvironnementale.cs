@@ -29,7 +29,7 @@ namespace building_materials.Models
 
         [Required]
         [StringLength(200)]
-        public string UtilisationNetteEauDouce { get; set; }
+        public double UtilisationNetteEauDouce { get; set; }
 
         [ForeignKey("IdMateriau")]
         public Materiau Materiau { get; set; }

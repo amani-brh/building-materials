@@ -33,6 +33,10 @@ namespace building_materials.Models
 
         [ForeignKey("IdProducteur")]
         public Producteur Producteur { get; set; }
+
+        public ICollection<Transport> Transports { get; set; } = [];
+        public ICollection<CaracteristiqueEnvironnementale> CaracteristiqueEnvironnementales { get; set; } = [];
+
     }
 
 }

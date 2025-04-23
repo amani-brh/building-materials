@@ -1,0 +1,35 @@
+﻿@model IEnumerable<building_materials.Models.MaterialDTO>
+
+@{
+    ViewData["Title"] = "Materials List";
+}
+
+<h1>Materials List</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Origine</th>
+            <th>Famille</th>
+            <th>Type</th>
+            <th>Emission CO2 Totale</th>
+            <th>Distance Totale</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var material in Model)
+        {
+                <tr>
+                    <td>@material.Nom</td>
+                    <td>@material.Origine</td>
+                    <td>@material.FamilleNom</td>
+                    <td>@material.TypeNom</td>
+                    <td>@material.EmissionCO2Totale</td>
+                    <td>@material.DistanceTotale</td>
+                </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home</a>
