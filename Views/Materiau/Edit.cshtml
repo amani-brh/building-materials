@@ -4,48 +4,81 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="container-fluid mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0"><i class="bi bi-pencil"></i> Edit Building Material</h2>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                <input type="hidden" asp-for="IdMateriau" />
 
-<h4>Materiau</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdMateriau" />
-            <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Origine" class="control-label"></label>
-                <input asp-for="Origine" class="form-control" />
-                <span asp-validation-for="Origine" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdFamille" class="control-label"></label>
-                <select asp-for="IdFamille" class="form-control" asp-items="ViewBag.IdFamille"></select>
-                <span asp-validation-for="IdFamille" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdProvenance" class="control-label"></label>
-                <select asp-for="IdProvenance" class="form-control" asp-items="ViewBag.IdProvenance"></select>
-                <span asp-validation-for="IdProvenance" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdProducteur" class="control-label"></label>
-                <select asp-for="IdProducteur" class="form-control" asp-items="ViewBag.IdProducteur"></select>
-                <span asp-validation-for="IdProducteur" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Nom" class="form-label fw-bold">Material Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-box-seam"></i></span>
+                                <input asp-for="Nom" class="form-control" placeholder="Enter material name" />
+                            </div>
+                            <span asp-validation-for="Nom" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Origine" class="form-label fw-bold">Material Origin</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                <input asp-for="Origine" class="form-control" placeholder="Enter material origin" />
+                            </div>
+                            <span asp-validation-for="Origine" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="IdFamille" class="form-label fw-bold">Material Family</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                                <select asp-for="IdFamille" class="form-select" asp-items="ViewBag.IdFamille"></select>
+                            </div>
+                            <span asp-validation-for="IdFamille" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="IdProvenance" class="form-label fw-bold">Country of Origin</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-globe"></i></span>
+                                <select asp-for="IdProvenance" class="form-select" asp-items="ViewBag.IdProvenance"></select>
+                            </div>
+                            <span asp-validation-for="IdProvenance" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="IdProducteur" class="form-label fw-bold">Manufacturer</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-building"></i></span>
+                                <select asp-for="IdProducteur" class="form-select" asp-items="ViewBag.IdProducteur"></select>
+                            </div>
+                            <span asp-validation-for="IdProducteur" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-circle"></i> Update Material
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

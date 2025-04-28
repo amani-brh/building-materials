@@ -1,60 +1,122 @@
-@model building_materials.Models.CaracteristiqueEnvironnementale
+﻿@model building_materials.Models.CaracteristiqueEnvironnementale
 
 @{
-    ViewData["Title"] = "Create";
-
+    ViewData["Title"] = "Add Environmental Data";
 }
 
-<h1>Create</h1>
+<div class="container-fluid mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h2 class="mb-0"><i class="bi bi-plus-circle"></i> Add Environmental Impact Data</h2>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
-<h4>CaracteristiqueEnvironnementale</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="IdMateriau" class="control-label"></label>
-                <select asp-for="IdMateriau" class ="form-control" asp-items="ViewBag.IdMateriau"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="EmissionCO2" class="control-label"></label>
-                <input asp-for="EmissionCO2" class="form-control" />
-                <span asp-validation-for="EmissionCO2" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PollutionEau" class="control-label"></label>
-                <input asp-for="PollutionEau" class="form-control" />
-                <span asp-validation-for="PollutionEau" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PollutionAir" class="control-label"></label>
-                <input asp-for="PollutionAir" class="form-control" />
-                <span asp-validation-for="PollutionAir" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConsommationEau" class="control-label"></label>
-                <input asp-for="ConsommationEau" class="form-control" />
-                <span asp-validation-for="ConsommationEau" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UniteFonctionnelle" class="control-label"></label>
-                <input asp-for="UniteFonctionnelle" class="form-control" />
-                <span asp-validation-for="UniteFonctionnelle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UtilisationNetteEauDouce" class="control-label"></label>
-                <input asp-for="UtilisationNetteEauDouce" class="form-control" />
-                <span asp-validation-for="UtilisationNetteEauDouce" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="IdMateriau" class="form-label fw-bold">Building Material</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-building"></i></span>
+                                <select asp-for="IdMateriau" class="form-select" asp-items="ViewBag.IdMateriau">
+                                    <option value="">-- Select Material --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="EmissionCO2" class="form-label fw-bold">CO₂ Emissions</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-cloud"></i></span>
+                                <input asp-for="EmissionCO2" class="form-control" placeholder="0.00" />
+                                <span class="input-group-text">kg CO₂ eq</span>
+                            </div>
+                            <span asp-validation-for="EmissionCO2" class="text-danger"></span>
+                            <small class="form-text text-muted">Total carbon dioxide equivalent emissions</small>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="PollutionEau" class="form-label fw-bold">Water Pollution Impact</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-droplet"></i></span>
+                                <input asp-for="PollutionEau" class="form-control" placeholder="0.00" />
+                                <span class="input-group-text">CTUe</span>
+                            </div>
+                            <span asp-validation-for="PollutionEau" class="text-danger"></span>
+                            <small class="form-text text-muted">Comparative Toxic Units for ecosystems</small>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="PollutionAir" class="form-label fw-bold">Air Pollution Impact</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-wind"></i></span>
+                                <input asp-for="PollutionAir" class="form-control" placeholder="0.00" />
+                                <span class="input-group-text">kg NMVOC eq</span>
+                            </div>
+                            <span asp-validation-for="PollutionAir" class="text-danger"></span>
+                            <small class="form-text text-muted">Non-methane volatile organic compounds equivalent</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="ConsommationEau" class="form-label fw-bold">Water Consumption</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-water"></i></span>
+                                <input asp-for="ConsommationEau" class="form-control" placeholder="0.00" />
+                                <span class="input-group-text">m³</span>
+                            </div>
+                            <span asp-validation-for="ConsommationEau" class="text-danger"></span>
+                            <small class="form-text text-muted">Total water used in production</small>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="UniteFonctionnelle" class="form-label fw-bold">Functional Unit</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-rulers"></i></span>
+                                <input asp-for="UniteFonctionnelle" class="form-control" placeholder="e.g., 1 m² of material" />
+                            </div>
+                            <span asp-validation-for="UniteFonctionnelle" class="text-danger"></span>
+                            <small class="form-text text-muted">Reference unit for environmental impacts</small>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="UtilisationNetteEauDouce" class="form-label fw-bold">Net Freshwater Usage</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-droplet-half"></i></span>
+                                <input asp-for="UtilisationNetteEauDouce" class="form-control" placeholder="0.00" />
+                                <span class="input-group-text">m³</span>
+                            </div>
+                            <span asp-validation-for="UtilisationNetteEauDouce" class="text-danger"></span>
+                            <small class="form-text text-muted">Net freshwater consumed after recycling</small>
+                        </div>
+
+                        <div class="card bg-light mt-4">
+                            <div class="card-body">
+                                <h6 class="card-title"><i class="bi bi-info-circle"></i> Environmental Assessment</h6>
+                                <p class="card-text small">The environmental impact data provides essential metrics for assessing the ecological footprint of building materials throughout their lifecycle.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check-circle"></i> Save Environmental Data
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

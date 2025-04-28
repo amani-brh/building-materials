@@ -63,16 +63,15 @@ namespace building_materials.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdMateriau,Nom,Origine,IdFamille,IdProvenance,IdProducteur")] Materiau materiau)
         {
-            if (ModelState.IsValid)
-            {
+            
                 _context.Add(materiau);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdFamille"] = new SelectList(_context.Familles, "IdFamille", "NomFamille", materiau.IdFamille);
-            ViewData["IdProducteur"] = new SelectList(_context.Producteurs, "IdProducteur", "LieuProduction", materiau.IdProducteur);
-            ViewData["IdProvenance"] = new SelectList(_context.Provenances, "IdProvenance", "Pays", materiau.IdProvenance);
-            return View(materiau);
+            
+            //ViewData["IdFamille"] = new SelectList(_context.Familles, "IdFamille", "NomFamille", materiau.IdFamille);
+            //ViewData["IdProducteur"] = new SelectList(_context.Producteurs, "IdProducteur", "LieuProduction", materiau.IdProducteur);
+            //ViewData["IdProvenance"] = new SelectList(_context.Provenances, "IdProvenance", "Pays", materiau.IdProvenance);
+            //return View(materiau);
         }
 
         // GET: Materiau/Edit/5
@@ -106,8 +105,8 @@ namespace building_materials.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+           // if (ModelState.IsValid)
+           // {
                 try
                 {
                     _context.Update(materiau);
@@ -125,11 +124,11 @@ namespace building_materials.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdFamille"] = new SelectList(_context.Familles, "IdFamille", "NomFamille", materiau.IdFamille);
-            ViewData["IdProducteur"] = new SelectList(_context.Producteurs, "IdProducteur", "LieuProduction", materiau.IdProducteur);
-            ViewData["IdProvenance"] = new SelectList(_context.Provenances, "IdProvenance", "Pays", materiau.IdProvenance);
-            return View(materiau);
+           // }
+           // ViewData["IdFamille"] = new SelectList(_context.Familles, "IdFamille", "NomFamille", materiau.IdFamille);
+           // ViewData["IdProducteur"] = new SelectList(_context.Producteurs, "IdProducteur", "LieuProduction", materiau.IdProducteur);
+           // ViewData["IdProvenance"] = new SelectList(_context.Provenances, "IdProvenance", "Pays", materiau.IdProvenance);
+           // return View(materiau);
         }
 
         // GET: Materiau/Delete/5

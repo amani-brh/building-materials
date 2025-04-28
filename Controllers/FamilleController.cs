@@ -59,15 +59,18 @@ namespace building_materials.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdFamille,NomFamille,IdType")] Famille famille)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _context.Add(famille);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdType"] = new SelectList(_context.Types, "IdType", "NomType", famille.IdType);
-            return View(famille);
+            //}
+            //ViewData["IdType"] = new SelectList(_context.Types, "IdType", "NomType", famille.IdType);
+            //return View(famille);
         }
+
+  
+
 
         // GET: Famille/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -98,8 +101,8 @@ namespace building_materials.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 try
                 {
                     _context.Update(famille);
@@ -117,9 +120,9 @@ namespace building_materials.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdType"] = new SelectList(_context.Types, "IdType", "NomType", famille.IdType);
-            return View(famille);
+            //}
+            //ViewData["IdType"] = new SelectList(_context.Types, "IdType", "NomType", famille.IdType);
+            //return View(famille);
         }
 
         // GET: Famille/Delete/5

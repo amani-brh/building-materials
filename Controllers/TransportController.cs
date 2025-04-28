@@ -61,15 +61,15 @@ namespace building_materials.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdTransport,IdMateriau,IdMoyenTransport,DistanceKm,EmissionCO2")] Transport transport)
         {
-            if (ModelState.IsValid)
-            {
+           // if (ModelState.IsValid)
+            //{
                 _context.Add(transport);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+            /*}
             ViewData["IdMateriau"] = new SelectList(_context.Materiaux, "IdMateriau", "Nom", transport.IdMateriau);
             ViewData["IdMoyenTransport"] = new SelectList(_context.FacteurTransports, "IdMoyenTransport", "Nom", transport.IdMoyenTransport);
-            return View(transport);
+            return View(transport);*/
         }
 
         // GET: Transport/Edit/5
@@ -102,8 +102,8 @@ namespace building_materials.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+           // if (ModelState.IsValid)
+           // {
                 try
                 {
                     _context.Update(transport);
@@ -121,10 +121,10 @@ namespace building_materials.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
+          /*  }
             ViewData["IdMateriau"] = new SelectList(_context.Materiaux, "IdMateriau", "Nom", transport.IdMateriau);
             ViewData["IdMoyenTransport"] = new SelectList(_context.FacteurTransports, "IdMoyenTransport", "Nom", transport.IdMoyenTransport);
-            return View(transport);
+            return View(transport);*/
         }
 
         // GET: Transport/Delete/5

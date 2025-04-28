@@ -50,7 +50,6 @@ namespace building_materials.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<double>("UtilisationNetteEauDouce")
-                        .HasMaxLength(200)
                         .HasColumnType("float");
 
                     b.HasKey("IdCaract");

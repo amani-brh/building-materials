@@ -6,14 +6,12 @@ namespace building_materials.Models
     {
         [Key]
         public int IdProducteur { get; set; }
-
         [Required]
         [StringLength(100)]
-        public string? Nom { get; set; }
-
+        public string Nom { get; set; } = string.Empty;
         [Required]
         [StringLength(200)]
-        public string? LieuProduction { get; set; }
+        public string LieuProduction { get; set; } = string.Empty;
     }
 
 }

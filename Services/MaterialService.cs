@@ -1,5 +1,6 @@
 ﻿using building_materials.Data;
 using building_materials.Models;
+using building_materials.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -11,6 +12,7 @@ namespace building_materials.Services
         Task<MaterialDTO> GetMaterialByIdAsync(int id);
         Task<IEnumerable<MaterialDTO>> SearchMaterialsByNameAsync(string name);
         Task<Dictionary<string, double>> GetMaterialStatisticsAsync(int id);
+        Task<List<MaterialComparison>> GetMaterialsComparisonAsync(List<int> idList);
     }
 
     public class MaterialService(BuildingMaterialsContext context) : IMaterialService
@@ -142,7 +144,26 @@ namespace building_materials.Services
                 DistanceTotale = material.Transports?.Sum(t => t.DistanceKm) ?? 0
             };
         }
+        public async Task<List<MaterialComparison>> GetMaterialsComparisonAsync(List<int> idList)
+        {
+            var result = new List<MaterialComparison>();
 
+            foreach (var id in idList)
+            {
+                var material = await GetMaterialByIdAsync(id);
+                if (material != null)
+                {
+                    var stats = await GetMaterialStatisticsAsync(id);
 
+                    result.Add(new MaterialComparison
+                    {
+                        Material = material,
+                        Statistics = stats
+                    });
+                }
+            }
+
+            return result;
+        }
     }
 }

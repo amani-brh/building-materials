@@ -133,7 +133,7 @@ namespace building_materials.Migrations
                     PollutionAir = table.Column<double>(type: "float", nullable: false),
                     ConsommationEau = table.Column<double>(type: "float", nullable: false),
                     UniteFonctionnelle = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    UtilisationNetteEauDouce = table.Column<double>(type: "float", maxLength: 200, nullable: false)
+                    UtilisationNetteEauDouce = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {

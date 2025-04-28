@@ -7,16 +7,12 @@ namespace building_materials.Models
     {
         [Key]
         public int IdFamille { get; set; }
-
         [Required]
         [StringLength(100)]
-        public string? NomFamille { get; set; }
-
+        public string NomFamille { get; set; } = string.Empty;
         [Required]
         public int IdType { get; set; }
-
         [ForeignKey("IdType")]
-        public MaterialType Type { get; set; }
+        public MaterialType Type { get; set; } = null!;
     }
-
 }

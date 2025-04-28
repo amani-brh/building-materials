@@ -11,7 +11,7 @@ using building_materials.Data;
 namespace building_materials.Migrations
 {
     [DbContext(typeof(BuildingMaterialsContext))]
-    [Migration("20250423000354_Init")]
+    [Migration("20250428123211_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -53,7 +53,6 @@ namespace building_materials.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<double>("UtilisationNetteEauDouce")
-                        .HasMaxLength(200)
                         .HasColumnType("float");
 
                     b.HasKey("IdCaract");

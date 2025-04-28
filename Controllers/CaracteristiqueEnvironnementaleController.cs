@@ -59,14 +59,14 @@ namespace building_materials.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCaract,IdMateriau,EmissionCO2,PollutionEau,PollutionAir,ConsommationEau,UniteFonctionnelle,UtilisationNetteEauDouce")] CaracteristiqueEnvironnementale caracteristiqueEnvironnementale)
         {
-            if (ModelState.IsValid)
-            {
+          //  if (ModelState.IsValid)
+           // {
                 _context.Add(caracteristiqueEnvironnementale);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+           /* }
             ViewData["IdMateriau"] = new SelectList(_context.Materiaux, "IdMateriau", "Nom", caracteristiqueEnvironnementale.IdMateriau);
-            return View(caracteristiqueEnvironnementale);
+            return View(caracteristiqueEnvironnementale);*/
         }
 
         // GET: CaracteristiqueEnvironnementale/Edit/5
@@ -98,8 +98,8 @@ namespace building_materials.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+           // if (ModelState.IsValid)
+            //{
                 try
                 {
                     _context.Update(caracteristiqueEnvironnementale);
@@ -117,9 +117,9 @@ namespace building_materials.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdMateriau"] = new SelectList(_context.Materiaux, "IdMateriau", "Nom", caracteristiqueEnvironnementale.IdMateriau);
-            return View(caracteristiqueEnvironnementale);
+           // }
+          //  ViewData["IdMateriau"] = new SelectList(_context.Materiaux, "IdMateriau", "Nom", caracteristiqueEnvironnementale.IdMateriau);
+          //  return View(caracteristiqueEnvironnementale);
         }
 
         // GET: CaracteristiqueEnvironnementale/Delete/5

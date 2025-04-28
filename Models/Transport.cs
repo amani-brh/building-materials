@@ -7,24 +7,18 @@ namespace building_materials.Models
     {
         [Key]
         public int IdTransport { get; set; }
-
         [Required]
         public int IdMateriau { get; set; }
-
         [Required]
         public int IdMoyenTransport { get; set; }
-
         [Required]
         public int DistanceKm { get; set; }
-
         [Required]
         public double EmissionCO2 { get; set; }
-
         [ForeignKey("IdMateriau")]
-        public Materiau Materiau { get; set; }
-
+        public Materiau Materiau { get; set; } = null!;
         [ForeignKey("IdMoyenTransport")]
-        public FacteurTransport MoyenTransport { get; set; }
+        public FacteurTransport MoyenTransport { get; set; } = null!;
     }
 
 }

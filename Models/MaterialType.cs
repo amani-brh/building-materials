@@ -6,10 +6,8 @@ namespace building_materials.Models
     {
         [Key]
         public int IdType { get; set; }
-
         [Required]
         [StringLength(100)]
-        public string? NomType { get; set; }
+        public string NomType { get; set; } = string.Empty;
     }
-
 }

@@ -1,72 +1,88 @@
-@model IEnumerable<building_materials.Models.CaracteristiqueEnvironnementale>
+﻿@model IEnumerable<building_materials.Models.CaracteristiqueEnvironnementale>
 
 @{
-    ViewData["Title"] = "Index";
-
+    ViewData["Title"] = "Environmental Impact Data";
 }
 
-<h1>Index</h1>
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-4">Environmental Impact Analysis</h1>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Add New Environmental Data
+        </a>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EmissionCO2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PollutionEau)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PollutionAir)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConsommationEau)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UniteFonctionnelle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UtilisationNetteEauDouce)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Materiau)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmissionCO2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PollutionEau)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PollutionAir)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConsommationEau)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UniteFonctionnelle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UtilisationNetteEauDouce)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Materiau.Nom)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdCaract">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdCaract">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdCaract">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="card shadow">
+        <div class="card-header bg-success bg-opacity-25">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="bi bi-leaf"></i> Material Environmental Characteristics</h5>
+                <small class="text-muted">Sustainability metrics for building materials</small>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>
+                                <i class="bi bi-building"></i> @Html.DisplayNameFor(model => model.Materiau)
+                            </th>
+                            <th>
+                                <i class="bi bi-cloud"></i> @Html.DisplayNameFor(model => model.EmissionCO2)
+                                <small class="text-muted">(kg CO₂ eq)</small>
+                            </th>
+                            <th>
+                                <i class="bi bi-droplet"></i> @Html.DisplayNameFor(model => model.PollutionEau)
+                                <small class="text-muted">(CTUe)</small>
+                            </th>
+                            <th>
+                                <i class="bi bi-wind"></i> @Html.DisplayNameFor(model => model.PollutionAir)
+                                <small class="text-muted">(kg NMVOC eq)</small>
+                            </th>
+                            <th>
+                                <i class="bi bi-water"></i> @Html.DisplayNameFor(model => model.ConsommationEau)
+                                <small class="text-muted">(m³)</small>
+                            </th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="fw-bold">
+                                    @Html.DisplayFor(modelItem => item.Materiau.Nom)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmissionCO2)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PollutionEau)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PollutionAir)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ConsommationEau)
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Edit" asp-route-id="@item.IdCaract" class="btn btn-sm btn-primary">
+                                            <i class="bi bi-pencil"></i> Edit
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.IdCaract" class="btn btn-sm btn-info">
+                                            <i class="bi bi-info-circle"></i> Details
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdCaract" class="btn btn-sm btn-danger">
+                                            <i class="bi bi-trash"></i> Delete
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
