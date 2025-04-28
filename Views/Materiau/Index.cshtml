@@ -44,7 +44,7 @@
                                 <td>@Html.DisplayFor(modelItem => item.Origine)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Famille.NomFamille)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Provenance.Pays)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Producteur.LieuProduction)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Producteur.Nom)</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group">
                                         <a asp-action="Edit" asp-route-id="@item.IdMateriau" class="btn btn-sm btn-primary">

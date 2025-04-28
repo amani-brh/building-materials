@@ -51,7 +51,7 @@ namespace building_materials.Controllers
         public IActionResult Create()
         {
             ViewData["IdFamille"] = new SelectList(_context.Familles, "IdFamille", "NomFamille");
-            ViewData["IdProducteur"] = new SelectList(_context.Producteurs, "IdProducteur", "LieuProduction");
+            ViewData["IdProducteur"] = new SelectList(_context.Producteurs, "IdProducteur", "Nom");
             ViewData["IdProvenance"] = new SelectList(_context.Provenances, "IdProvenance", "Pays");
             return View();
         }
@@ -70,6 +70,7 @@ namespace building_materials.Controllers
             
             //ViewData["IdFamille"] = new SelectList(_context.Familles, "IdFamille", "NomFamille", materiau.IdFamille);
             //ViewData["IdProducteur"] = new SelectList(_context.Producteurs, "IdProducteur", "LieuProduction", materiau.IdProducteur);
+            //
             //ViewData["IdProvenance"] = new SelectList(_context.Provenances, "IdProvenance", "Pays", materiau.IdProvenance);
             //return View(materiau);
         }
@@ -88,7 +89,7 @@ namespace building_materials.Controllers
                 return NotFound();
             }
             ViewData["IdFamille"] = new SelectList(_context.Familles, "IdFamille", "NomFamille", materiau.IdFamille);
-            ViewData["IdProducteur"] = new SelectList(_context.Producteurs, "IdProducteur", "LieuProduction", materiau.IdProducteur);
+            ViewData["IdProducteur"] = new SelectList(_context.Producteurs, "IdProducteur", "Nom", materiau.IdProducteur);
             ViewData["IdProvenance"] = new SelectList(_context.Provenances, "IdProvenance", "Pays", materiau.IdProvenance);
             return View(materiau);
         }

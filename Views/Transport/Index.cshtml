@@ -1,53 +1,78 @@
 @model IEnumerable<building_materials.Models.Transport>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Transport Management";
 }
 
-<h1>Index</h1>
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">Transport Management</h2>
+                <a asp-action="Create" class="btn btn-light">
+                    <i class="bi bi-plus-circle"></i> Add New Transport Record
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="text-muted mb-4">
+                Manage transportation records for building materials. Each record represents how a material is transported,
+                the distance traveled, and the resulting CO2 emissions.
+            </p>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DistanceKm)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmissionCO2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Materiau)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MoyenTransport)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DistanceKm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmissionCO2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Materiau.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MoyenTransport.Nom)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdTransport">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdTransport">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdTransport">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>
+                                <i class="bi bi-building"></i> @Html.DisplayNameFor(model => model.Materiau)
+                            </th>
+                            <th>
+                                <i class="bi bi-truck"></i> @Html.DisplayNameFor(model => model.MoyenTransport)
+                            </th>
+                            <th>
+                                <i class="bi bi-map"></i> @Html.DisplayNameFor(model => model.DistanceKm)
+                            </th>
+                            <th>
+                                <i class="bi bi-cloud"></i> @Html.DisplayNameFor(model => model.EmissionCO2)
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Materiau.Nom)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MoyenTransport.Nom)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DistanceKm) km
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmissionCO2) kg CO<sub>2</sub>
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Edit" asp-route-id="@item.IdTransport" class="btn btn-sm btn-outline-primary" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.IdTransport" class="btn btn-sm btn-outline-info" title="Details">
+                                            <i class="bi bi-info-circle"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdTransport" class="btn btn-sm btn-outline-danger" title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
