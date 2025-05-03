@@ -1,39 +1,60 @@
 @model building_materials.Models.Producteur
-
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Producer";
 }
 
-<h1>Edit</h1>
+<div class="container py-4">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Producers</a></li>
+            <li class="breadcrumb-item active">Edit @Model.Nom</li>
+        </ol>
+    </nav>
 
-<h4>Producteur</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdProducteur" />
-            <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LieuProduction" class="control-label"></label>
-                <input asp-for="LieuProduction" class="form-control" />
-                <span asp-validation-for="LieuProduction" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0"><i class="bi bi-pencil me-2"></i>Edit Producer</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" class="needs-validation">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                <input type="hidden" asp-for="IdProducteur" />
+
+                <div class="mb-4">
+                    <label asp-for="Nom" class="form-label fw-medium">Producer Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-building"></i></span>
+                        <input asp-for="Nom" class="form-control" placeholder="Enter the producer's company name" required />
+                    </div>
+                    <span asp-validation-for="Nom" class="text-danger small"></span>
+                    <div class="form-text">Official registered company name of the material producer</div>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="LieuProduction" class="form-label fw-medium">Production Location</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                        <input asp-for="LieuProduction" class="form-control" placeholder="City, Country or full address" required />
+                    </div>
+                    <span asp-validation-for="LieuProduction" class="text-danger small"></span>
+                    <div class="form-text">Where the building materials are manufactured</div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-2"></i>Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-2"></i>Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
