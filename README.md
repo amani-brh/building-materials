@@ -25,6 +25,8 @@ The Building Materials Management System is a web application designed to manage
 
 ### Producer Management
 ![Producer Management](Images/produc.png)
+### Statistics
+![Producer Management](Images/web.png)
 
 ## Technologies Used
 - **ASP.NET Core**: Backend framework for building the web application.
