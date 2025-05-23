@@ -12,7 +12,7 @@ The Building Materials Management System is a web application designed to manage
 
 ## Screenshots
 ### Home Page
-![Home Page](Images/web.png)
+![Home Page](Images/plateforme.png)
 
 ### Material Details
 ![Material Details](Images/details.png)
